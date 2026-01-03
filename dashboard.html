@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Dayflow HRMS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Dayflow</h2>
+  <a href="dashboard.html" class="active">Dashboard</a>
+  <a href="attendance.html">Attendance</a>
+  <a href="leave.html">Leave</a>
+  <a href="payroll.html">Payroll</a>
+  <a href="profile.html">Profile</a>
+  <a href="login.html" style="margin-top: 2rem; color: rgba(255,255,255,0.5);">Logout</a>
+</div>
+
+<div class="main">
+  <div class="flex-between mb-3">
+    <h1>Dashboard</h1>
+    <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Attendance Summary</h3>
+      <p class="text-muted">This month</p>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-top: 1rem;">22/23</p>
+      <p class="text-muted" style="font-size: 0.875rem;">Days present</p>
+    </div>
+    <div class="card">
+      <h3>Leave Balance</h3>
+      <p class="text-muted">Available leaves</p>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--success); margin-top: 1rem;">12</p>
+      <p class="text-muted" style="font-size: 0.875rem;">Days remaining</p>
+    </div>
+    <div class="card">
+      <h3>Salary Info</h3>
+      <p class="text-muted">Current month</p>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-top: 1rem;">$5,200</p>
+      <p class="text-muted" style="font-size: 0.875rem;">Gross salary</p>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+<script src="js/app.js"></script>
+</body>
+</html>

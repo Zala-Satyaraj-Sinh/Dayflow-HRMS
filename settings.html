@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Dayflow HRMS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Admin Panel</h2>
+  <a href="admin.html">Dashboard</a>
+  <a href="employee-list.html">Employees</a>
+  <a href="attendance-admin.html">Attendance</a>
+  <a href="leave-approval.html">Leave Approval</a>
+  <a href="payroll.html">Payroll</a>
+  <a href="reports.html">Reports</a>
+  <a href="settings.html" class="active">Settings</a>
+  <a href="login.html" style="margin-top: 2rem; color: rgba(255,255,255,0.5);">Logout</a>
+</div>
+
+<div class="main">
+  <div class="flex-between mb-3">
+    <h1>Settings</h1>
+    <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem;">Account Settings</h3>
+      <form onsubmit="handlePasswordChange(event)">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Current Password</label>
+        <input type="password" id="currentPassword" placeholder="Enter current password" required>
+        
+        <label style="display: block; margin-bottom: 0.5rem; margin-top: 1rem; font-weight: 600; color: var(--text-primary);">New Password</label>
+        <input type="password" id="newPassword" placeholder="Enter new password" required minlength="6">
+        
+        <label style="display: block; margin-bottom: 0.5rem; margin-top: 1rem; font-weight: 600; color: var(--text-primary);">Confirm New Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm new password" required minlength="6">
+        
+        <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem;">Change Password</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem;">Notification Preferences</h3>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+          <span>Email Notifications</span>
+          <input type="checkbox" checked style="width: auto; margin: 0;">
+        </label>
+        <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+          <span>Leave Request Alerts</span>
+          <input type="checkbox" checked style="width: auto; margin: 0;">
+        </label>
+        <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+          <span>Payroll Updates</span>
+          <input type="checkbox" checked style="width: auto; margin: 0;">
+        </label>
+        <label style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+          <span>Attendance Reminders</span>
+          <input type="checkbox" style="width: auto; margin: 0;">
+        </label>
+      </div>
+      <button class="btn" style="width: 100%; margin-top: 1.5rem;" onclick="saveNotificationSettings()">Save Preferences</button>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem;">System Settings</h3>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Working Hours</label>
+          <input type="text" value="9:00 AM - 6:00 PM" disabled style="opacity: 0.6;">
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Default Leave Days</label>
+          <input type="number" value="20" min="0" max="30">
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Payroll Cycle</label>
+          <select>
+            <option>Monthly</option>
+            <option>Bi-weekly</option>
+            <option>Weekly</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn" style="width: 100%; margin-top: 1.5rem;" onclick="saveSystemSettings()">Save Settings</button>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem;">User Management</h3>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <button class="btn secondary" style="width: 100%; justify-content: flex-start;" onclick="manageRoles()">
+          👥 Manage Roles
+        </button>
+        <button class="btn secondary" style="width: 100%; justify-content: flex-start;" onclick="managePermissions()">
+          🔐 Manage Permissions
+        </button>
+        <button class="btn secondary" style="width: 100%; justify-content: flex-start;" onclick="backupData()">
+          💾 Backup Data
+        </button>
+        <button class="btn error" style="width: 100%; justify-content: flex-start;" onclick="resetSystem()">
+          ⚠️ Reset System
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+<script src="js/app.js"></script>
+<script>
+function handlePasswordChange(event) {
+  event.preventDefault();
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  
+  if (newPassword !== confirmPassword) {
+    showToast("Passwords do not match!", "error");
+    return;
+  }
+  
+  const submitBtn = event.target.querySelector("button[type='submit']");
+  submitBtn.innerHTML = "Changing...";
+  submitBtn.disabled = true;
+  
+  setTimeout(() => {
+    showToast("Password changed successfully!", "success");
+    event.target.reset();
+    submitBtn.innerHTML = "Change Password";
+    submitBtn.disabled = false;
+  }, 1500);
+}
+
+function saveNotificationSettings() {
+  showToast("Notification preferences saved!", "success");
+}
+
+function saveSystemSettings() {
+  showToast("System settings saved!", "success");
+}
+
+function manageRoles() {
+  showToast("Role management feature coming soon!", "info");
+}
+
+function managePermissions() {
+  showToast("Permission management feature coming soon!", "info");
+}
+
+function backupData() {
+  showToast("Creating backup...", "info");
+  setTimeout(() => {
+    showToast("Backup created successfully!", "success");
+  }, 2000);
+}
+
+function resetSystem() {
+  if (confirm("Are you sure you want to reset the system? This action cannot be undone.")) {
+    showToast("System reset initiated...", "warning");
+  }
+}
+</script>
+</body>
+</html>

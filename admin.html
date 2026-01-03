@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Dayflow HRMS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Admin Panel</h2>
+  <a href="admin.html" class="active">Dashboard</a>
+  <a href="employee-list.html">Employees</a>
+  <a href="attendance-admin.html">Attendance</a>
+  <a href="leave-approval.html">Leave Approval</a>
+  <a href="payroll.html">Payroll</a>
+  <a href="reports.html">Reports</a>
+  <a href="settings.html">Settings</a>
+  <a href="login.html" style="margin-top: 2rem; color: rgba(255,255,255,0.5);">Logout</a>
+</div>
+
+<div class="main">
+  <div class="flex-between mb-3">
+    <h1>Admin Dashboard</h1>
+    <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Total Employees</h3>
+      <p class="text-muted">Active staff</p>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-top: 1rem;">156</p>
+    </div>
+    <div class="card">
+      <h3>Pending Leaves</h3>
+      <p class="text-muted">Awaiting approval</p>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--warning); margin-top: 1rem;">8</p>
+    </div>
+    <div class="card">
+      <h3>Today's Attendance</h3>
+      <p class="text-muted">Present today</p>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--success); margin-top: 1rem;">142</p>
+    </div>
+    <div class="card">
+      <h3>Monthly Payroll</h3>
+      <p class="text-muted">Total amount</p>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-top: 1rem;">$812K</p>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+<script src="js/app.js"></script>
+</body>
+</html>

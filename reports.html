@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports & Analytics - Dayflow HRMS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Admin Panel</h2>
+  <a href="admin.html">Dashboard</a>
+  <a href="employee-list.html">Employees</a>
+  <a href="attendance-admin.html">Attendance</a>
+  <a href="leave-approval.html">Leave Approval</a>
+  <a href="payroll.html">Payroll</a>
+  <a href="reports.html" class="active">Reports</a>
+  <a href="settings.html">Settings</a>
+  <a href="login.html" style="margin-top: 2rem; color: rgba(255,255,255,0.5);">Logout</a>
+</div>
+
+<div class="main">
+  <div class="flex-between mb-3">
+    <h1>Reports & Analytics</h1>
+    <div class="flex gap-2">
+      <select id="reportPeriod" style="width: auto; margin: 0;">
+        <option value="month">This Month</option>
+        <option value="quarter">This Quarter</option>
+        <option value="year">This Year</option>
+      </select>
+      <button class="btn secondary" onclick="exportReport()">Export Report</button>
+      <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+
+  <div class="card-grid mb-3">
+    <div class="card">
+      <h3>Attendance Rate</h3>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--success); margin-top: 1rem;">94.2%</p>
+      <p class="text-muted" style="font-size: 0.875rem;">Average this month</p>
+    </div>
+    <div class="card">
+      <h3>Leave Utilization</h3>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-top: 1rem;">68%</p>
+      <p class="text-muted" style="font-size: 0.875rem;">Of allocated leaves</p>
+    </div>
+    <div class="card">
+      <h3>Total Payroll</h3>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-top: 1rem;">$812K</p>
+      <p class="text-muted" style="font-size: 0.875rem;">This month</p>
+    </div>
+    <div class="card">
+      <h3>New Hires</h3>
+      <p style="font-size: 2rem; font-weight: 700; color: var(--success); margin-top: 1rem;">12</p>
+      <p class="text-muted" style="font-size: 0.875rem;">This quarter</p>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="grid-column: span 2;">
+      <h3 style="margin-bottom: 1.5rem;">Attendance Report</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th>Total Employees</th>
+            <th>Present</th>
+            <th>On Leave</th>
+            <th>Absent</th>
+            <th>Attendance %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Engineering</td>
+            <td>45</td>
+            <td>42</td>
+            <td>2</td>
+            <td>1</td>
+            <td><span style="color: var(--success); font-weight: 600;">93.3%</span></td>
+          </tr>
+          <tr>
+            <td>Marketing</td>
+            <td>28</td>
+            <td>26</td>
+            <td>1</td>
+            <td>1</td>
+            <td><span style="color: var(--success); font-weight: 600;">92.9%</span></td>
+          </tr>
+          <tr>
+            <td>Sales</td>
+            <td>35</td>
+            <td>33</td>
+            <td>2</td>
+            <td>0</td>
+            <td><span style="color: var(--success); font-weight: 600;">94.3%</span></td>
+          </tr>
+          <tr>
+            <td>HR</td>
+            <td>18</td>
+            <td>17</td>
+            <td>1</td>
+            <td>0</td>
+            <td><span style="color: var(--success); font-weight: 600;">94.4%</span></td>
+          </tr>
+          <tr>
+            <td>Finance</td>
+            <td>15</td>
+            <td>14</td>
+            <td>1</td>
+            <td>0</td>
+            <td><span style="color: var(--success); font-weight: 600;">93.3%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-grid mt-3">
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem;">Quick Reports</h3>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <button class="btn secondary" style="width: 100%; justify-content: flex-start;" onclick="generateReport('attendance')">
+          📊 Attendance Report
+        </button>
+        <button class="btn secondary" style="width: 100%; justify-content: flex-start;" onclick="generateReport('leave')">
+          📅 Leave Report
+        </button>
+        <button class="btn secondary" style="width: 100%; justify-content: flex-start;" onclick="generateReport('payroll')">
+          💰 Payroll Report
+        </button>
+        <button class="btn secondary" style="width: 100%; justify-content: flex-start;" onclick="generateReport('employee')">
+          👥 Employee Report
+        </button>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem;">Department Performance</h3>
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+          <div class="flex-between mb-1">
+            <span>Engineering</span>
+            <span style="font-weight: 600;">93.3%</span>
+          </div>
+          <div style="height: 8px; background: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: 93.3%; background: var(--success);"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex-between mb-1">
+            <span>Marketing</span>
+            <span style="font-weight: 600;">92.9%</span>
+          </div>
+          <div style="height: 8px; background: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: 92.9%; background: var(--success);"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex-between mb-1">
+            <span>Sales</span>
+            <span style="font-weight: 600;">94.3%</span>
+          </div>
+          <div style="height: 8px; background: var(--bg-tertiary); border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: 94.3%; background: var(--success);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer"></div>
+<script src="js/app.js"></script>
+<script>
+function generateReport(type) {
+  showToast(`Generating ${type} report...`, "info");
+  setTimeout(() => {
+    showToast(`${type.charAt(0).toUpperCase() + type.slice(1)} report generated successfully!`, "success");
+  }, 2000);
+}
+
+function exportReport() {
+  showToast("Exporting report...", "info");
+  setTimeout(() => {
+    showToast("Report exported successfully!", "success");
+  }, 1500);
+}
+</script>
+</body>
+</html>
